@@ -10,8 +10,8 @@ func New() TLock {
 	return TLock{ch: make(chan struct{}, 1)}
 }
 
-func (t TLock) Lock () {
-	t.ch<- struct{}{}
+func (t TLock) Lock() {
+	t.ch <- struct{}{}
 }
 
 func (t TLock) LockWithContext(ctx context.Context) bool {

@@ -9,9 +9,9 @@ type LinkedHashMap struct {
 }
 
 func New() *LinkedHashMap {
-	dh,dt:=new(Node),new(Node)
-	dh.next=dt
-	dt.pre=dh
+	dh, dt := new(Node), new(Node)
+	dh.next = dt
+	dt.pre = dh
 	return &LinkedHashMap{
 		dummyHead: dh,
 		dummyTail: dt,
@@ -20,9 +20,9 @@ func New() *LinkedHashMap {
 }
 
 func NewWithCapacity(capacity int) *LinkedHashMap {
-	dh,dt:=new(Node),new(Node)
-	dh.next=dt
-	dt.pre=dh
+	dh, dt := new(Node), new(Node)
+	dh.next = dt
+	dt.pre = dh
 	return &LinkedHashMap{
 		dummyHead: dh,
 		dummyTail: dt,
@@ -64,19 +64,18 @@ func (lhmap *LinkedHashMap) Last() (*Node, error) {
 func (lhmap *LinkedHashMap) Put(key, val interface{}) {
 	n, ok := lhmap.m[key]
 	if ok {
-		n.Value=val
-	}else{
+		n.Value = val
+	} else {
 		n = &Node{Key: key, Value: val}
 		lhmap.dummyTail.pre.add(n)
 		lhmap.m[key] = n
 	}
 }
 
-
 func (lhmap *LinkedHashMap) PutFirst(key, val interface{}) {
 	n, ok := lhmap.m[key]
 	if ok {
-		n.Value =val
+		n.Value = val
 		lhmap.removeNode(n)
 		lhmap.dummyHead.add(n)
 	} else {
@@ -89,7 +88,7 @@ func (lhmap *LinkedHashMap) PutFirst(key, val interface{}) {
 func (lhmap *LinkedHashMap) PutLast(key, val interface{}) {
 	n, ok := lhmap.m[key]
 	if ok {
-		n.Value =val
+		n.Value = val
 		lhmap.removeNode(n)
 		lhmap.dummyTail.pre.add(n)
 	} else {
