@@ -18,12 +18,20 @@ func (lhset *LinkedHashSet) Has(key interface{}) bool {
 	return lhset.lhmap.Has(key)
 }
 
-func (lhset *LinkedHashSet) GetFirst() interface{} {
-	return lhset.lhmap.GetFirst().Key
+func (lhset *LinkedHashSet) First() (interface{}, error) {
+	n,err:=lhset.lhmap.First()
+	if err!=nil {
+		return nil,err
+	}
+	return n.Key,nil
 }
 
-func (lhset *LinkedHashSet) GetLast() interface{} {
-	return lhset.lhmap.GetLast().Key
+func (lhset *LinkedHashSet) Last() (interface{}, error) {
+	n,err:=lhset.lhmap.Last()
+	if err!=nil {
+		return nil,err
+	}
+	return n.Key,nil
 }
 
 func (lhset *LinkedHashSet) AddFirst(val interface{}) {
@@ -38,12 +46,20 @@ func (lhset *LinkedHashSet) Remove(val interface{}) bool {
 	return lhset.lhmap.Remove(val)
 }
 
-func (lhset *LinkedHashSet) PollFirst() interface{} {
-	return lhset.lhmap.PollFirst()
+func (lhset *LinkedHashSet) PollFirst() (interface{}, error) {
+	n,err:=lhset.lhmap.PollFirst()
+	if err!=nil {
+		return nil,err
+	}
+	return n.Key,nil
 }
 
-func (lhset *LinkedHashSet) PollLast() interface{} {
-	return lhset.lhmap.PollLast()
+func (lhset *LinkedHashSet) PollLast() (interface{}, error) {
+	n,err:=lhset.lhmap.PollLast()
+	if err!=nil {
+		return nil,err
+	}
+	return n.Key,nil
 }
 
 func (lhset *LinkedHashSet) Size() int {
@@ -54,8 +70,10 @@ func (lhset *LinkedHashSet) Empty() bool {
 	return lhset.lhmap.Size() == 0
 }
 
-func (lhset *LinkedHashSet) Clear() {
-	for !lhset.Empty() {
-		lhset.PollFirst()
-	}
+func (lhset *LinkedHashSet) Head() *Node {
+	return &Node{lhset.lhmap.Head()}
+}
+
+func (lhset *LinkedHashSet) Tail() *Node {
+	return &Node{lhset.lhmap.Tail()}
 }

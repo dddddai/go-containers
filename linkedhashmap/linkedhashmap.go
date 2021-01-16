@@ -37,7 +37,7 @@ func (lhmap *LinkedHashMap) Has(key interface{}) bool {
 
 func (lhmap *LinkedHashMap) Get(key interface{}) (interface{}, bool) {
 	n, ok := lhmap.m[key]
-	return n.Val, ok
+	return n.Value, ok
 }
 
 func (lhmap *LinkedHashMap) GetOrDefault(key, dft interface{}) interface{} {
@@ -61,14 +61,26 @@ func (lhmap *LinkedHashMap) Last() (*Node, error) {
 	return lhmap.dummyTail.pre, nil
 }
 
+func (lhmap *LinkedHashMap) Put(key, val interface{}) {
+	n, ok := lhmap.m[key]
+	if ok {
+		n.Value=val
+	}else{
+		n = &Node{Key: key, Value: val}
+		lhmap.dummyTail.pre.add(n)
+		lhmap.m[key] = n
+	}
+}
+
+
 func (lhmap *LinkedHashMap) PutFirst(key, val interface{}) {
 	n, ok := lhmap.m[key]
 	if ok {
-		n.Val=val
+		n.Value =val
 		lhmap.removeNode(n)
 		lhmap.dummyHead.add(n)
 	} else {
-		n = &Node{Key: key, Val: val}
+		n = &Node{Key: key, Value: val}
 		lhmap.dummyHead.add(n)
 		lhmap.m[key] = n
 	}
@@ -77,11 +89,11 @@ func (lhmap *LinkedHashMap) PutFirst(key, val interface{}) {
 func (lhmap *LinkedHashMap) PutLast(key, val interface{}) {
 	n, ok := lhmap.m[key]
 	if ok {
-		n.Val=val
+		n.Value =val
 		lhmap.removeNode(n)
 		lhmap.dummyTail.pre.add(n)
 	} else {
-		n = &Node{Key: key, Val: val}
+		n = &Node{Key: key, Value: val}
 		lhmap.dummyTail.pre.add(n)
 		lhmap.m[key] = n
 	}

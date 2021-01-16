@@ -1,10 +1,10 @@
 package linkedhashmap
 
 type Node struct {
-	pre  *Node
-	next *Node
-	Key interface{}
-	Val interface{}
+	pre   *Node
+	next  *Node
+	Key   interface{}
+	Value interface{}
 }
 
 func (n *Node) add(x *Node) {
